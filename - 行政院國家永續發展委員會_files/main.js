@@ -1,28 +1,10 @@
-
 //回到頂端
 function Back_top() {
 
-        $('html,body').animate({ scrollTop: 0 });
-        $('#top').focus();    
+    $('html,body').animate({ scrollTop: 0 });
+    $('#top').focus();
 
-    //var offset = 100,
-    //    offset_opacity = 1200,
-    //    scroll_top_duration = 700,
-    //    $back_to_top = $('.cd-top');
-    //$(window).scroll(function () {
-    //    ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
-    //    if ($(this).scrollTop() > offset_opacity) {
-    //        $back_to_top.addClass('cd-fade-out');
-    //    }
-    //});
-    //$back_to_top.on('click',
-    //    function (event) {
-    //        event.preventDefault();
-    //        $('body,html').animate({
-    //            scrollTop: 0,
-    //        },
-    //            scroll_top_duration);
-    //    });
+
 }
 
 //手機選單
@@ -30,7 +12,7 @@ function mobile_menu() {
     var winWidth = $(window).width();
 
     //漢堡線
-    $("#mobile_menu_labIcon").click(function () {
+    $("#mobile_menu_labIcon").click(function() {
         $(".nav-bar").toggleClass("on");
         $(".portfolio-filter.isotope-filter.pull-center").toggleClass("on");
         $("#greybg").toggle();
@@ -38,7 +20,7 @@ function mobile_menu() {
 
     })
 
-    $("#greybg").click(function () {
+    $("#greybg").click(function() {
 
         $(this).toggle();
         $(".portfolio-filter.isotope-filter.pull-center").removeClass("on");
@@ -51,9 +33,9 @@ function mobile_menu() {
 //tab 切换
 function navtab() {
 
-    $(".J-nav-tab").each(function () {
+    $(".J-nav-tab").each(function() {
         var tthis = $(this)
-        $(this).find("a").click(function () {
+        $(this).find("a").click(function() {
             var $this = $(this);
             var $obj = $this.attr("href");
             tthis.find("a").removeClass("on")
@@ -61,7 +43,7 @@ function navtab() {
             $($obj).show().siblings().hide()
             return false;
         })
-        $(this).find("a").focus(function () {
+        $(this).find("a").focus(function() {
             var $this = $(this);
             var $obj = $this.attr("href");
             tthis.find("a").removeClass("on")
@@ -74,7 +56,7 @@ function navtab() {
 
 //header置頂
 function headerTop() {
-    $(window).scroll(function () {
+    $(window).scroll(function() {
         var winWidth = $(window).width(),
             topWindow = $(window).scrollTop();
         if (topWindow > 0 && winWidth > 1340) {
@@ -88,7 +70,7 @@ function headerTop() {
 
     var winWidth = $(window).width();
     if (winWidth < 1340) {
-        $(".submenu li.nsdnmenu ").click(function () {
+        $(".submenu li.nsdnmenu ").click(function() {
             $(this).toggleClass("on");
             $(this).children(".hasChild").stop().slideToggle();
 
@@ -126,7 +108,7 @@ function tabSet() {
         wwMedium = 800,
         wwSmall = 600,
         wwxs = 420;
-    $('.tabs').each(function () {
+    $('.tabs').each(function() {
 
         var _tab = $(this),
             _tabItem = _tab.find('.tabItem'),
@@ -207,12 +189,12 @@ function imgscript() {
 
     //tab切換
     $(".tabRoot .tabArea").hide();
-    $(".tabRoot").each(function () {
+    $(".tabRoot").each(function() {
         $(this).find('.tabArea:eq(0)').show();
         $(this).find(".tabButton:eq(0)").addClass("section");
         var _root = $(this);
-        $(this).find(".tabButton").each(function (index) {
-            $(this).on('focusin', function () {
+        $(this).find(".tabButton").each(function(index) {
+            $(this).on('focusin', function() {
                 $(_root).find('.tabArea').hide();
                 $(_root).find(".tabArea:eq(" + index + ")").stop().fadeIn();
                 $(_root).find('.tabButton').removeClass("section");
@@ -223,24 +205,65 @@ function imgscript() {
 }
 
 //設計a href錨點來切換至區塊位置，但因為切換沒有滑動效果，所以需要加再上動畫滾動效果
-$(document).ready(function () {
-    $(".disB").on("click", function () {
+$(document).ready(function() {
+    $(".disB").on("click", function() {
 
         $(".noteZone").slideToggle();
     });
 
-    $("a.en_btn").on("click", function () {
+    $("a.en_btn").on("click", function() {
         var hrefLink = $(this).attr("name");
-        $("html,body").animate(
-            {
+        $("html,body").animate({
                 scrollTop: $(hrefLink).offset().top //直接到相對位置
             },
             800
         );
     });
+    // Carousel是幻燈片的意思，在元件裡面可以添加一些控制元素來控制幻燈片的播放
+    //     共分為三個元素組成
+    // Carousel item
+    // Carousel controls
+    // Carousel indicators
+    $('#carousel1 button,#carousel1 a').focus(function() {
+        $("#carousel1").carousel('pause');
+    }).blur(function() {
+        $("#carousel1").carousel('cycle');
+    });
+
+    //TAB到輪播，若有連結出現外框
+    $('.carousel-inner a').focus(function() {
+        $('.carousel-inner').addClass('carouselborder');
+    }).blur(function() {
+        $('.carousel-inner').removeClass('carouselborder');
+    });
+
+
+
+
+    function play() {
+        $('#carousel1').carousel('cycle');
+        //IsPlayCarousel(true);
+    }
+
+    function stop() {
+        $('#carousel1').carousel('pause');
+        //IsPlayCarousel(false);
+    }
+
+    function IsPlayCarousel(b) {
+        //is play
+        if (b) {
+            $("#carouselPlay").addClass('disabled');
+            $("#carouselStop").removeClass('disabled');
+        } else {
+            $("#carouselStop").addClass('disabled');
+            $("#carouselPlay").removeClass('disabled');
+        }
+    }
+
 });
 
-$(function () {
+$(function() {
     //Back_top(); //回到頂端
     mobile_menu(); //手機選單
     headerTop(); //header置頂
